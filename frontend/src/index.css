@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #edf2ef;
+    background-image: 
+      radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.08) 0px, transparent 45%),
+      radial-gradient(at 90% 90%, rgba(70, 94, 78, 0.05) 0px, transparent 45%);
+    color: #0f172a;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.025em;
+    color: #0f172a;
+    font-weight: 800;
+  }
+}
+
+/* Soft Green-Grey Theme Card System */
+.glass-card {
+  background-color: #ffffff;
+  border: 1px solid #c5d3ca;
+  box-shadow: 0 4px 20px -2px rgba(45, 61, 51, 0.07);
+  border-radius: 1.25rem;
+}
+
+.glass-card-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  background-color: #ffffff;
+  border-color: #9db4a5;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -6px rgba(45, 61, 51, 0.12);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #edf2ef;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c5d3ca;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9db4a5;
+}
