@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="banner.png" alt="Wealthy Minds Pro Cover Banner" width="100%" />
+</p>
+
 # Wealthy Minds Pro — Personal Financial Management Platform
 
 A high-performance personal financial management web platform engineered with a **pure Java (Java 8+) backend** utilizing custom Data Structures (**Binary Search Tree**, **Max-Heap Priority Queue**, and **Directed Cash Flow Graph**) coupled with a modern **React SPA frontend**.
