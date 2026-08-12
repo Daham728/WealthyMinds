@@ -167,6 +167,3 @@ public class FinancialGraph {
         return s.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }
-// FinancialGraph BFS pathway tracer
-// FinancialGraph adjacency list memory check
-// FinancialGraph edge weight sum check
