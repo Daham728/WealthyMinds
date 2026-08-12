@@ -162,3 +162,4 @@ public class ReportEngine {
     }
 }
 // ReportEngine category breakdown sort helper
+// ReportEngine custom range formatter
