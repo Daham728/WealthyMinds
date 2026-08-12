@@ -130,3 +130,4 @@ public class MaxHeap {
         return s.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }
+// MaxHeap peekMax priority safety
