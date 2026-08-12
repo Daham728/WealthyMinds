@@ -98,3 +98,4 @@ export default function GraphVisualizer({ graphData }) {
     </div>
   );
 }
+// GraphVisualizer canvas render helper
