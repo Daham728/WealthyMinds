@@ -17,7 +17,9 @@ export default function TransactionsPage({
   const [endDate, setEndDate] = useState('');
   const [showVisualMap, setShowVisualMap] = useState(false);
 
-  const filteredTransactions = transactions.filter((t) => {
+  const safeTransactions = Array.isArray(transactions) ? transactions : [];
+
+  const filteredTransactions = safeTransactions.filter((t) => {
     if (filterType !== 'ALL' && t.type !== filterType) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();

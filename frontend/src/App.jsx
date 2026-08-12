@@ -110,6 +110,7 @@ export default function App() {
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         backendConnected={backendConnected}
+        onOpenAddModal={() => setIsAddModalOpen(true)}
         onOpenSalaryModal={() => setIsSalaryModalOpen(true)}
       />
 

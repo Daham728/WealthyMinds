@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Target, PlusCircle, Sparkles, Calendar } from 'lucide-react';
 
-export default function GoalsPage({ goals, onAddGoal }) {
+export default function GoalsPage({ goals = [], onAddGoal }) {
+  const safeGoals = Array.isArray(goals) ? goals : [];
   const [showAddGoalModal, setShowAddGoalModal] = useState(false);
   const [newGoal, setNewGoal] = useState({
     title: '',
@@ -60,7 +61,7 @@ export default function GoalsPage({ goals, onAddGoal }) {
 
       {/* Goals Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {goals.map((g) => (
+        {safeGoals.map((g) => (
           <div key={g.id} className="glass-card rounded-2xl p-6 border border-slate-300 bg-white shadow-md space-y-4">
             <div className="flex items-start justify-between">
               <div>

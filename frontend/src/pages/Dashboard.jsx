@@ -13,20 +13,25 @@ import {
 } from 'lucide-react';
 
 export default function Dashboard({ 
-  transactions, 
+  transactions = [], 
   healthScore, 
-  topExpenses, 
-  goals, 
+  topExpenses = [], 
+  goals = [], 
   setActiveTab, 
-  onOpenAddModal 
+  onOpenAddModal,
+  onOpenSalaryModal
 }) {
-  const totalIncome = transactions
-    .filter(t => t.type === 'INCOME')
-    .reduce((sum, t) => sum + t.amount, 0);
+  const safeTransactions = Array.isArray(transactions) ? transactions : [];
+  const safeTopExpenses = Array.isArray(topExpenses) ? topExpenses : [];
+  const safeGoals = Array.isArray(goals) ? goals : [];
 
-  const totalExpense = transactions
+  const totalIncome = safeTransactions
+    .filter(t => t.type === 'INCOME')
+    .reduce((sum, t) => sum + (t.amount || 0), 0);
+
+  const totalExpense = safeTransactions
     .filter(t => t.type === 'EXPENSE')
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum, t) => sum + (t.amount || 0), 0);
 
   const netSavings = totalIncome - totalExpense;
   const savingsRate = totalIncome > 0 ? ((netSavings / totalIncome) * 100).toFixed(1) : 0;
@@ -192,7 +197,7 @@ export default function Dashboard({
             </div>
 
             <div className="divide-y divide-slate-200">
-              {transactions.slice(0, 5).map((t) => (
+              {safeTransactions.slice(0, 5).map((t) => (
                 <div key={t.id} className="py-3.5 flex items-center justify-between hover:bg-slate-100 px-2 rounded-xl transition-colors">
                   <div className="flex items-center space-x-3">
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-black text-xs ${
@@ -207,7 +212,7 @@ export default function Dashboard({
                   </div>
                   <div className="text-right">
                     <span className={`text-xs font-black ${t.type === 'INCOME' ? 'text-emerald-800' : 'text-rose-800'}`}>
-                      {t.type === 'INCOME' ? '+' : '-'} Rs. {t.amount.toLocaleString()}
+                      {t.type === 'INCOME' ? '+' : '-'} Rs. {(t.amount || 0).toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -230,13 +235,13 @@ export default function Dashboard({
             </div>
 
             <div className="space-y-3">
-              {topExpenses.slice(0, 4).map((item, idx) => (
+              {safeTopExpenses.slice(0, 4).map((item, idx) => (
                 <div key={idx} className="p-3.5 rounded-xl bg-slate-100 border border-slate-300 flex items-center justify-between">
                   <div>
                     <p className="text-xs font-black text-slate-950 truncate max-w-[140px]">{item.title}</p>
                     <span className="text-[10px] text-slate-800 font-bold">{item.category}</span>
                   </div>
-                  <span className="text-xs font-black text-amber-900">Rs. {item.amount.toLocaleString()}</span>
+                  <span className="text-xs font-black text-amber-900">Rs. {(item.amount || 0).toLocaleString()}</span>
                 </div>
               ))}
             </div>
@@ -258,7 +263,7 @@ export default function Dashboard({
             </div>
 
             <div className="space-y-4">
-              {goals.slice(0, 3).map((g) => (
+              {safeGoals.slice(0, 3).map((g) => (
                 <div key={g.id} className="space-y-1.5">
                   <div className="flex justify-between text-xs font-black">
                     <span className="text-slate-950">{g.title}</span>
