@@ -21,6 +21,15 @@ public class BinarySearchTree {
         return size;
     }
 
+    public int getHeight() {
+        return calculateHeight(root);
+    }
+
+    private int calculateHeight(BSTNode node) {
+        if (node == null) return 0;
+        return 1 + Math.max(calculateHeight(node.getLeft()), calculateHeight(node.getRight()));
+    }
+
     public void insert(Transaction transaction) {
         if (transaction == null || transaction.getDate() == null) return;
         root = insertRecursive(root, transaction);
