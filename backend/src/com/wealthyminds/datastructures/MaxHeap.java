@@ -25,6 +25,7 @@ public class MaxHeap {
     }
 
     public void insert(Transaction transaction, double priority) {
+        if (transaction == null) return;
         HeapNode node = new HeapNode(transaction, priority);
         heap.add(node);
         heapifyUp(heap.size() - 1);
