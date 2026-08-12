@@ -60,6 +60,42 @@ public class FinancialGraph {
         return total;
     }
 
+    public List<String> findShortestPath(String startId, String endId) {
+        List<String> path = new ArrayList<String>();
+        if (!nodes.containsKey(startId) || !nodes.containsKey(endId)) return path;
+
+        Map<String, String> parent = new HashMap<String, String>();
+        Queue<String> queue = new LinkedList<String>();
+        Set<String> visited = new HashSet<String>();
+
+        queue.add(startId);
+        visited.add(startId);
+
+        while (!queue.isEmpty()) {
+            String curr = queue.poll();
+            if (curr.equals(endId)) break;
+
+            List<Edge> edges = adjacencyList.get(curr);
+            if (edges != null) {
+                for (Edge e : edges) {
+                    if (!visited.contains(e.getToId())) {
+                        visited.add(e.getToId());
+                        parent.put(e.getToId(), curr);
+                        queue.add(e.getToId());
+                    }
+                }
+            }
+        }
+
+        if (!visited.contains(endId)) return path;
+        String curr = endId;
+        while (curr != null) {
+            path.add(0, curr);
+            curr = parent.get(curr);
+        }
+        return path;
+    }
+
     public List<String> bfs(String startNodeId) {
         List<String> visitedOrder = new ArrayList<String>();
         if (!nodes.containsKey(startNodeId)) return visitedOrder;
