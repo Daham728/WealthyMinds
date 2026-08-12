@@ -24,6 +24,7 @@ public class GraphReportService {
     }
 
     public String generateGraphAuditReport(String period) {
+        // Daily overspending threshold audit & Month-over-Month variance analysis
         DataStore ds = DataStore.getInstance();
         FinancialGraph graph = ds.getFinancialGraph();
         List<Transaction> transactions = ds.getTransactionBst().getAllInOrder();
