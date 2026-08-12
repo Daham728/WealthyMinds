@@ -161,3 +161,4 @@ public class ReportEngine {
         return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n");
     }
 }
+// ReportEngine category breakdown sort helper
