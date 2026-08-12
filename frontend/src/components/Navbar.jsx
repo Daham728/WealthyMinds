@@ -10,7 +10,7 @@ import {
   Wallet
 } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, onOpenAddModal, backendConnected }) {
+export default function Navbar({ activeTab, setActiveTab, onOpenAddModal, onOpenSalaryModal, backendConnected }) {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'transactions', label: 'Transactions', icon: ArrowLeftRight },
@@ -71,13 +71,21 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAddModal, backen
           </nav>
 
           {/* Actions & Connection Indicator */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2.5">
             <div className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-300 text-xs">
               <span className={`w-2.5 h-2.5 rounded-full ${backendConnected ? 'bg-emerald-600' : 'bg-amber-600'}`} />
               <span className="text-slate-900 text-[11px] font-black">
                 {backendConnected ? 'System Active' : 'Connecting...'}
               </span>
             </div>
+
+            <button
+              onClick={onOpenSalaryModal}
+              className="hidden sm:flex items-center space-x-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 text-xs font-black px-3.5 py-2.5 rounded-xl border border-emerald-300 transition-all shadow-sm"
+              title="Job Promotion / Raise Salary"
+            >
+              <span>🏆 Raise Salary</span>
+            </button>
 
             <button
               onClick={onOpenAddModal}
@@ -113,4 +121,3 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAddModal, backen
     </header>
   );
 }
-// Navbar brand alignment flex layout

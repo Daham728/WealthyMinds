@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AddTransactionModal from './components/AddTransactionModal';
+import SalaryPromotionModal from './components/SalaryPromotionModal';
 
 import Dashboard from './pages/Dashboard';
 import TransactionsPage from './pages/TransactionsPage';
@@ -14,6 +15,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [backendConnected, setBackendConnected] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isSalaryModalOpen, setIsSalaryModalOpen] = useState(false);
 
   // State loaded from backend REST API
   const [transactions, setTransactions] = useState([]);
@@ -59,45 +61,32 @@ export default function App() {
 
       setBackendConnected(true);
     } catch (error) {
-      console.warn("Backend API connecting...", error);
+      console.error("Backend fetch error:", error);
       setBackendConnected(false);
     }
   };
 
   useEffect(() => {
     fetchAllData();
-    const interval = setInterval(fetchAllData, 4000);
-    return () => clearInterval(interval);
   }, []);
 
-  const handleAddTransaction = async (newTxn) => {
+  // Post transaction to Java Backend
+  const handleAddTransaction = async (newTx) => {
     try {
       const res = await fetch('http://localhost:8080/api/transactions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newTxn)
+        body: JSON.stringify(newTx)
       });
       if (res.ok) {
-        fetchAllData();
+        await fetchAllData();
       }
     } catch (e) {
-      console.error("Failed to post transaction:", e);
+      console.error("Failed to add transaction:", e);
     }
   };
 
-  const handleDeleteTransaction = async (id) => {
-    try {
-      const res = await fetch(`http://localhost:8080/api/transactions/${id}`, {
-        method: 'DELETE'
-      });
-      if (res.ok) {
-        fetchAllData();
-      }
-    } catch (e) {
-      console.error("Failed to delete transaction:", e);
-    }
-  };
-
+  // Post new Goal
   const handleAddGoal = async (newGoal) => {
     try {
       const res = await fetch('http://localhost:8080/api/goals', {
@@ -106,34 +95,36 @@ export default function App() {
         body: JSON.stringify(newGoal)
       });
       if (res.ok) {
-        fetchAllData();
+        await fetchAllData();
       }
     } catch (e) {
-      console.error("Failed to post goal:", e);
+      console.error("Failed to add goal:", e);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#edf2ef] text-slate-900 font-sans selection:bg-emerald-600 selection:text-white">
+    <div className="min-h-screen bg-slate-100 flex flex-col text-slate-900 font-sans">
       
-      {/* Sticky Header Navbar */}
+      {/* Top Navbar */}
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
-        onOpenAddModal={() => setIsAddModalOpen(true)} 
         backendConnected={backendConnected}
+        onOpenSalaryModal={() => setIsSalaryModalOpen(true)}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Main Content View */}
+      <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
         {activeTab === 'dashboard' && (
           <Dashboard 
-            transactions={transactions} 
-            healthScore={healthScore} 
-            topExpenses={topExpenses} 
-            goals={goals} 
+            transactions={transactions}
+            healthScore={healthScore}
+            topExpenses={topExpenses}
+            goals={goals}
             setActiveTab={setActiveTab}
             onOpenAddModal={() => setIsAddModalOpen(true)}
+            onOpenSalaryModal={() => setIsSalaryModalOpen(true)}
           />
         )}
 
@@ -141,10 +132,8 @@ export default function App() {
           <TransactionsPage 
             transactions={transactions}
             treeData={treeData}
-            onAddTransaction={handleAddTransaction}
-            onDeleteTransaction={handleDeleteTransaction}
             onOpenAddModal={() => setIsAddModalOpen(true)}
-            onRefresh={fetchAllData}
+            onOpenSalaryModal={() => setIsSalaryModalOpen(true)}
           />
         )}
 
@@ -179,6 +168,13 @@ export default function App() {
       <AddTransactionModal 
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
+        onAddTransaction={handleAddTransaction}
+      />
+
+      {/* Job Promotion & Base Salary Update Modal */}
+      <SalaryPromotionModal
+        isOpen={isSalaryModalOpen}
+        onClose={() => setIsSalaryModalOpen(false)}
         onAddTransaction={handleAddTransaction}
       />
 
