@@ -99,3 +99,4 @@ public class GraphReportService {
     }
 }
 // GraphReportService account liquidity audit
+// GraphReportService automated insights generator
