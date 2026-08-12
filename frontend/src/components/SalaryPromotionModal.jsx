@@ -1,27 +1,38 @@
 import React, { useState } from 'react';
-import { Award, X, CheckCircle2, TrendingUp, Building2, Calendar } from 'lucide-react';
+import { DollarSign, X, CheckCircle2, TrendingUp, TrendingDown, Briefcase, Building2, Calendar } from 'lucide-react';
 
 export default function SalaryPromotionModal({ isOpen, onClose, onAddTransaction }) {
+  const [adjustmentType, setAdjustmentType] = useState('PROMOTION');
   const [salaryAmount, setSalaryAmount] = useState('450000');
-  const [jobTitle, setJobTitle] = useState('Senior Lead Software Engineer');
+  const [jobTitle, setJobTitle] = useState('Senior Software Engineer');
   const [effectiveDate, setEffectiveDate] = useState('2026-08-01');
   const [account, setAccount] = useState('Commercial Bank');
-  const [description, setDescription] = useState('Annual promotion & salary raise payout');
+  const [description, setDescription] = useState('Monthly income adjustment update');
 
   if (!isOpen) return null;
+
+  const getCategoryLabel = () => {
+    switch (adjustmentType) {
+      case 'PROMOTION': return 'Salary Raise / Promotion';
+      case 'PAY_CUT': return 'Salary Reduction / Adjustment';
+      case 'NEW_JOB': return 'New Job Career Transition';
+      case 'FREELANCE_CHANGE': return 'Freelance Rate Adjustment';
+      default: return 'Recurring Income Change';
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!salaryAmount || Number(salaryAmount) <= 0) return;
 
     onAddTransaction({
-      title: `Monthly Salary Raise (${jobTitle})`,
+      title: `${getCategoryLabel()} (${jobTitle})`,
       amount: Number(salaryAmount),
       type: 'INCOME',
-      category: 'Salary',
+      category: adjustmentType === 'FREELANCE_CHANGE' ? 'Freelance' : 'Salary',
       date: effectiveDate || '2026-08-01',
       account: account,
-      description: description || 'Promoted salary increase'
+      description: description || 'Monthly recurring income adjustment'
     });
 
     onClose();
@@ -42,20 +53,38 @@ export default function SalaryPromotionModal({ isOpen, onClose, onAddTransaction
         {/* Modal Header */}
         <div className="flex items-center space-x-3 border-b border-slate-100 pb-4">
           <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center justify-center shadow-sm">
-            <Award className="w-6 h-6 text-emerald-700" />
+            <DollarSign className="w-6 h-6 text-emerald-700" />
           </div>
           <div>
-            <h3 className="font-black text-lg text-slate-900">Job Promotion / Salary Raise</h3>
-            <p className="text-xs text-slate-600 font-semibold">Update your base recurring monthly income</p>
+            <h3 className="font-black text-lg text-slate-900">Update Monthly Income</h3>
+            <p className="text-xs text-slate-600 font-semibold">Adjust recurring salary, job changes, or freelance rates</p>
           </div>
         </div>
 
         {/* Form Inputs */}
         <form onSubmit={handleSubmit} className="space-y-4 text-xs font-bold">
           
+          {/* Income Change Type */}
           <div>
             <label className="text-slate-700 uppercase tracking-wider text-[11px] block mb-1">
-              New Promoted Salary (LKR) *
+              Income Adjustment Reason / Type *
+            </label>
+            <select
+              value={adjustmentType}
+              onChange={(e) => setAdjustmentType(e.target.value)}
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 font-black text-xs outline-none focus:ring-2 focus:ring-emerald-500"
+            >
+              <option value="PROMOTION">🟢 Job Promotion / Salary Increase</option>
+              <option value="NEW_JOB">💼 New Job Offer / Career Move</option>
+              <option value="FREELANCE_CHANGE">💵 Freelance / Side Income Adjustment</option>
+              <option value="PAY_CUT">🔴 Salary Reduction / Market Adjustment</option>
+              <option value="OTHER">🏢 Passive / Other Income Adjustment</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="text-slate-700 uppercase tracking-wider text-[11px] block mb-1">
+              New Monthly Income (LKR) *
             </label>
             <input
               type="number"
@@ -69,14 +98,14 @@ export default function SalaryPromotionModal({ isOpen, onClose, onAddTransaction
 
           <div>
             <label className="text-slate-700 uppercase tracking-wider text-[11px] block mb-1">
-              Promotion Designation / Job Title *
+              Income Source / Job Role *
             </label>
             <input
               type="text"
               required
               value={jobTitle}
               onChange={(e) => setJobTitle(e.target.value)}
-              placeholder="e.g. Senior Lead Software Engineer"
+              placeholder="e.g. Senior Software Engineer / Lead Consultant"
               className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 font-bold focus:ring-2 focus:ring-emerald-500 outline-none"
             />
           </div>
@@ -112,13 +141,13 @@ export default function SalaryPromotionModal({ isOpen, onClose, onAddTransaction
 
           <div>
             <label className="text-slate-700 uppercase tracking-wider text-[11px] block mb-1">
-              Note / Details
+              Note / Explanation
             </label>
             <input
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Reason for raise..."
+              placeholder="e.g. Updated base monthly contract rate..."
               className="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 font-medium outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
@@ -136,7 +165,7 @@ export default function SalaryPromotionModal({ isOpen, onClose, onAddTransaction
               className="flex items-center space-x-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black shadow-md shadow-emerald-600/30 transition-transform active:scale-95"
             >
               <CheckCircle2 className="w-4 h-4" />
-              <span>Apply Salary Raise</span>
+              <span>Update Income Record</span>
             </button>
           </div>
 
