@@ -688,3 +688,4 @@ export default function ReportsPage() {
 }
 // ReportsPage Income view component selector
 // ReportsPage Expense view progress bar renderer
+// ReportsPage Account Liquidity table
