@@ -62,3 +62,4 @@ public class Transaction {
         return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r");
     }
 }
+// Transaction JSON escaping utility
