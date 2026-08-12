@@ -50,6 +50,16 @@ public class FinancialGraph {
     public Map<String, GraphNode> getNodes() { return nodes; }
     public Map<String, List<Edge>> getAdjacencyList() { return adjacencyList; }
 
+    public double getTotalWeight() {
+        double total = 0;
+        for (List<Edge> edgeList : adjacencyList.values()) {
+            for (Edge e : edgeList) {
+                total += e.getWeight();
+            }
+        }
+        return total;
+    }
+
     public List<String> bfs(String startNodeId) {
         List<String> visitedOrder = new ArrayList<String>();
         if (!nodes.containsKey(startNodeId)) return visitedOrder;
