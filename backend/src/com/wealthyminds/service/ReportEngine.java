@@ -27,6 +27,7 @@ public class ReportEngine {
     }
 
     public String generateReport(String period, String customStart, String customEnd) {
+        // Evaluate dynamic monthly income target and daily budget threshold
         DataStore ds = DataStore.getInstance();
         BinarySearchTree bst = ds.getTransactionBst();
 
