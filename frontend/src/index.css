@@ -57,3 +57,17 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #9db4a5;
 }
+
+/* Printable PDF Statement Styling */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  header, footer, nav, button {
+    display: none !important;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+}
