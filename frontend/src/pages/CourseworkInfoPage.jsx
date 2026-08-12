@@ -117,6 +117,13 @@ export default function CourseworkInfoPage({ courseworkData }) {
               Interactive node-network mapping money movements between bank accounts, recurring SaaS subscriptions, loans, and investment portfolios using BFS/DFS graph traversals.
             </p>
           </div>
+
+          <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2 col-span-1 md:col-span-3">
+            <span className="font-bold text-white text-sm">4. Financial Reports & Printable Statement Center</span>
+            <p className="text-slate-300">
+              Comprehensive report engine supporting Daily, Weekly, Monthly, Annual, and Custom Range financial statements with dedicated Income, Expense, Liquidity, and Goals analysis and printable PDF layout export.
+            </p>
+          </div>
         </div>
       </div>
 
