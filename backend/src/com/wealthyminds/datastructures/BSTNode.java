@@ -22,3 +22,4 @@ public class BSTNode {
     public BSTNode getRight() { return right; }
     public void setRight(BSTNode right) { this.right = right; }
 }
+// BST Node helper for date comparisons
