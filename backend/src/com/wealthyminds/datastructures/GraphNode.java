@@ -23,3 +23,4 @@ public class GraphNode {
     public void incrementInDegree() { inDegree++; }
     public void incrementOutDegree() { outDegree++; }
 }
+// GraphNode type validator
