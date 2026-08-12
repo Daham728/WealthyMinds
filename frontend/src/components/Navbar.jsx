@@ -113,3 +113,4 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAddModal, backen
     </header>
   );
 }
+// Navbar brand alignment flex layout
