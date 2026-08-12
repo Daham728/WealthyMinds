@@ -25,6 +25,20 @@ public class BinarySearchTree {
         return calculateHeight(root);
     }
 
+    public String getMinDate() {
+        if (root == null) return null;
+        BSTNode curr = root;
+        while (curr.getLeft() != null) curr = curr.getLeft();
+        return curr.getTransaction().getDate();
+    }
+
+    public String getMaxDate() {
+        if (root == null) return null;
+        BSTNode curr = root;
+        while (curr.getRight() != null) curr = curr.getRight();
+        return curr.getTransaction().getDate();
+    }
+
     private int calculateHeight(BSTNode node) {
         if (node == null) return 0;
         return 1 + Math.max(calculateHeight(node.getLeft()), calculateHeight(node.getRight()));
