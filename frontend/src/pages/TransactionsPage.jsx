@@ -7,7 +7,8 @@ export default function TransactionsPage({
   treeData, 
   onAddTransaction, 
   onDeleteTransaction, 
-  onOpenAddModal, 
+  onOpenAddModal,
+  onOpenSalaryModal,
   onRefresh 
 }) {
   const [filterType, setFilterType] = useState('ALL');
@@ -59,7 +60,7 @@ export default function TransactionsPage({
           </div>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-wrap items-center gap-2.5">
           <button
             onClick={() => setShowVisualMap(!showVisualMap)}
             className={`flex items-center space-x-1.5 text-xs font-black px-3.5 py-2.5 rounded-xl border transition-all ${
@@ -70,6 +71,13 @@ export default function TransactionsPage({
           >
             <Eye className="w-4 h-4" />
             <span>{showVisualMap ? 'Hide Visual Map' : 'Show Visual Map'}</span>
+          </button>
+
+          <button
+            onClick={onOpenSalaryModal}
+            className="flex items-center space-x-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 text-xs font-black px-3.5 py-2.5 rounded-xl border border-emerald-300 transition-all shadow-sm"
+          >
+            <span>🏆 Raise Salary</span>
           </button>
 
           <button

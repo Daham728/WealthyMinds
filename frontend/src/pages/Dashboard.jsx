@@ -50,13 +50,21 @@ export default function Dashboard({
               Monitor real-time income streams, expenditure trends, and personalized wealth growth goals with complete clarity.
             </p>
 
-            <div className="pt-2 flex items-center space-x-3">
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               <button 
                 onClick={onOpenAddModal}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black px-4.5 py-2.5 rounded-xl shadow-md shadow-emerald-600/30 transition-transform active:scale-95"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black px-4.5 py-2.5 rounded-xl shadow-md shadow-emerald-600/30 transition-transform active:scale-95 flex items-center space-x-1.5"
               >
-                + Record Transaction
+                <span>+ Record Transaction</span>
               </button>
+
+              <button 
+                onClick={onOpenSalaryModal}
+                className="bg-emerald-100 hover:bg-emerald-200 text-emerald-950 text-xs font-black px-4 py-2.5 rounded-xl border border-emerald-300 transition-all flex items-center space-x-1.5 shadow-sm"
+              >
+                <span>🏆 Job Promotion / Raise Salary</span>
+              </button>
+
               <button 
                 onClick={() => setActiveTab('analytics')}
                 className="bg-slate-100 hover:bg-slate-200 text-slate-900 text-xs font-black px-4.5 py-2.5 rounded-xl border border-slate-300 transition-colors"
