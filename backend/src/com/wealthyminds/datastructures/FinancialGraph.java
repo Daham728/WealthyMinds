@@ -169,3 +169,4 @@ public class FinancialGraph {
 }
 // FinancialGraph BFS pathway tracer
 // FinancialGraph adjacency list memory check
+// FinancialGraph edge weight sum check
