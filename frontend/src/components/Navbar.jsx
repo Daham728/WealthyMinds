@@ -82,9 +82,9 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAddModal, onOpen
             <button
               onClick={onOpenSalaryModal}
               className="hidden sm:flex items-center space-x-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 text-xs font-black px-3.5 py-2.5 rounded-xl border border-emerald-300 transition-all shadow-sm"
-              title="Job Promotion / Raise Salary"
+              title="Update Monthly Income"
             >
-              <span>🏆 Raise Salary</span>
+              <span>💼 Update Income</span>
             </button>
 
             <button

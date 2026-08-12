@@ -67,7 +67,7 @@ export default function Dashboard({
                 onClick={onOpenSalaryModal}
                 className="bg-emerald-100 hover:bg-emerald-200 text-emerald-950 text-xs font-black px-4 py-2.5 rounded-xl border border-emerald-300 transition-all flex items-center space-x-1.5 shadow-sm"
               >
-                <span>🏆 Job Promotion / Raise Salary</span>
+                <span>💼 Update Monthly Income</span>
               </button>
 
               <button 
