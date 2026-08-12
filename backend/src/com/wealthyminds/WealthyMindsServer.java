@@ -7,6 +7,8 @@ import com.wealthyminds.datastructures.HeapNode;
 import com.wealthyminds.model.Goal;
 import com.wealthyminds.model.Transaction;
 import com.wealthyminds.service.DataStore;
+import com.wealthyminds.service.ReportEngine;
+import com.wealthyminds.service.GraphReportService;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,6 +17,8 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Main Java REST API Server for Wealthy Minds Application.
@@ -37,6 +41,10 @@ public class WealthyMindsServer {
         server.createContext("/api/graph/flow", new GraphFlowHandler());
         server.createContext("/api/goals", new GoalsHandler());
         server.createContext("/api/coursework", new CourseworkHandler());
+
+        // Report Generation REST Endpoints (Members 1 & 2)
+        server.createContext("/api/reports/generate", new ReportEngineHandler());
+        server.createContext("/api/reports/flow-audit", new GraphAuditHandler());
 
         server.setExecutor(null); // default executor
         System.out.println("=================================================");
@@ -300,6 +308,53 @@ public class WealthyMindsServer {
                 + "]"
                 + "}";
             sendJsonResponse(exchange, 200, json);
+        }
+    }
+
+    static class ReportEngineHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) { handleOptions(exchange); return; }
+
+            String query = exchange.getRequestURI().getQuery();
+            String period = "monthly";
+            String startDate = null;
+            String endDate = null;
+
+            if (query != null && !query.isEmpty()) {
+                String[] pairs = query.split("&");
+                for (String pair : pairs) {
+                    String[] kv = pair.split("=");
+                    if (kv.length == 2) {
+                        if ("period".equalsIgnoreCase(kv[0])) period = kv[1];
+                        if ("startDate".equalsIgnoreCase(kv[0])) startDate = kv[1];
+                        if ("endDate".equalsIgnoreCase(kv[0])) endDate = kv[1];
+                    }
+                }
+            }
+
+            String reportJson = ReportEngine.getInstance().generateReport(period, startDate, endDate);
+            sendJsonResponse(exchange, 200, reportJson);
+        }
+    }
+
+    static class GraphAuditHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) { handleOptions(exchange); return; }
+
+            String query = exchange.getRequestURI().getQuery();
+            String period = "monthly";
+            if (query != null && query.contains("period=")) {
+                for (String p : query.split("&")) {
+                    if (p.startsWith("period=")) {
+                        period = p.substring("period=".length());
+                    }
+                }
+            }
+
+            String auditJson = GraphReportService.getInstance().generateGraphAuditReport(period);
+            sendJsonResponse(exchange, 200, auditJson);
         }
     }
 

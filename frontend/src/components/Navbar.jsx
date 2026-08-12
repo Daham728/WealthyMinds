@@ -5,6 +5,7 @@ import {
   TrendingUp, 
   Network, 
   Target, 
+  FileText,
   PlusCircle, 
   Wallet
 } from 'lucide-react';
@@ -16,6 +17,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAddModal, backen
     { id: 'analytics', label: 'Analytics', icon: TrendingUp },
     { id: 'graph', label: 'Cash Flow', icon: Network },
     { id: 'goals', label: 'Goals & Planning', icon: Target },
+    { id: 'reports', label: 'Reports', icon: FileText },
   ];
 
   return (
@@ -24,20 +26,23 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAddModal, backen
         <div className="flex items-center justify-between h-16">
           
           {/* Logo & Brand */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('dashboard')}>
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center shadow-md shadow-emerald-600/30 text-white font-black">
+          <div 
+            className="flex items-center space-x-3 cursor-pointer shrink-0 select-none group" 
+            onClick={() => setActiveTab('dashboard')}
+          >
+            <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center shadow-md shadow-emerald-600/30 text-white font-black transition-transform group-hover:scale-105">
               <Wallet className="w-5 h-5 text-white" />
             </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="font-black text-xl tracking-tight text-slate-900">
+            <div className="flex flex-col justify-center">
+              <div className="flex items-center space-x-2 leading-none">
+                <span className="font-black text-xl tracking-tight text-slate-900 leading-none">
                   Wealthy Minds
                 </span>
-                <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full border border-emerald-300">
+                <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full border border-emerald-300 leading-none">
                   Pro
                 </span>
               </div>
-              <p className="text-[11px] text-slate-700 font-bold">
+              <p className="text-[11px] text-slate-600 font-bold tracking-tight mt-1 leading-none">
                 Personal Financial Management Platform
               </p>
             </div>

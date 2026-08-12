@@ -67,6 +67,8 @@ Open your browser and navigate to `http://localhost:5173`.
 | `GET` | `/api/analytics/top-expenses` | Fetch top expense drivers from Max-Heap |
 | `GET` | `/api/graph/flow` | Retrieve Cash Flow Graph nodes and directed edges |
 | `GET` | `/api/goals` | Fetch active savings targets |
+| `GET` | `/api/reports/generate` | Generate Daily/Weekly/Monthly/Annual reports via BST |
+| `GET` | `/api/reports/flow-audit` | Retrieve Financial Graph account liquidity & flow audit |
 
 ---
 

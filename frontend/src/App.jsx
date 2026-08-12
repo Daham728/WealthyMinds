@@ -8,6 +8,7 @@ import TransactionsPage from './pages/TransactionsPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import GraphPage from './pages/GraphPage';
 import GoalsPage from './pages/GoalsPage';
+import ReportsPage from './pages/ReportsPage';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -167,6 +168,10 @@ export default function App() {
             goals={goals}
             onAddGoal={handleAddGoal}
           />
+        )}
+
+        {activeTab === 'reports' && (
+          <ReportsPage />
         )}
       </main>
 
